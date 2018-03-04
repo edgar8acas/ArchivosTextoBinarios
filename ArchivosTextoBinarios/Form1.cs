@@ -87,38 +87,39 @@ namespace ArchivosTextoBinarios
 
         private void btnGenerarXML_Click(object sender, EventArgs e)
         {
-            
+            SaveFile(generateXMLString());
+        }        
 
+        public String generateXMLString()
+        {
+            string xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 
-            XDocument xdoc = new XDocument();
-            XElement rootElement = new XElement("Agenda");
-            xdoc.Add(rootElement);
-            
-            foreach(Contacto c in Agenda)
+            xml += "<Agenda>\n";
+            foreach (Contacto c in Agenda)
             {
-                XElement contactoElement = new XElement("Contacto");
-                rootElement.Add(contactoElement);
+                xml += "<Contacto>\n"
+                    + "<Nombre>" + c.Nombre + "</Nombre>\n"
+                    + "<Apellido>" + c.Apellido + "</Apellido>\n"
+                    + "<Telefono>" + c.Telefono + "</Telefono>\n"
+                    + "<Correo>" + c.Correo + "</Correo>\n"
+                    + "<Pais>" + c.Pais + "</Pais>\n"
+                    + "</Contacto>\n";
 
-                XElement nombreElement = new XElement("Nombre", c.Nombre);
-                XElement apellidoElement = new XElement("Apellido", c.Apellido);
-                XElement telefonoElement = new XElement("Telefono", c.Telefono);
-                XElement correoElement = new XElement("Correo", c.Correo);
-                XElement paisElement = new XElement("Pais", c.Pais);
 
-                contactoElement.Add(nombreElement);
-                contactoElement.Add(apellidoElement);
-                contactoElement.Add(telefonoElement);
-                contactoElement.Add(correoElement);
-                contactoElement.Add(paisElement);
             }
+            xml += "</Agenda>\n";
 
+            return xml;
+        }
+
+        public void SaveFile(String xml)
+        {
             sfd1.ShowDialog();
-            FileStream archivo = new FileStream(sfd1.FileName, FileMode.Create);
-            StreamWriter sr = new StreamWriter(archivo);
+            StreamWriter archivo = new StreamWriter(sfd1.FileName);
+            archivo.WriteLine(xml);
 
             archivo.Flush();
             archivo.Close();
-            
         }
     }
 }
