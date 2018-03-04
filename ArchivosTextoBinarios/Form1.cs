@@ -90,7 +90,7 @@ namespace ArchivosTextoBinarios
             
 
 
-            /*XDocument xdoc = new XDocument();
+            XDocument xdoc = new XDocument();
             XElement rootElement = new XElement("Agenda");
             xdoc.Add(rootElement);
             
@@ -110,7 +110,7 @@ namespace ArchivosTextoBinarios
                 contactoElement.Add(telefonoElement);
                 contactoElement.Add(correoElement);
                 contactoElement.Add(paisElement);
-            }*/
+            }
 
             sfd1.ShowDialog();
             FileStream archivo = new FileStream(sfd1.FileName, FileMode.Create);
